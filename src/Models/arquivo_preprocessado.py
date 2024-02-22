@@ -20,7 +20,7 @@ def preprocessing():
    X = train_d.drop(['Crop_Damage'],axis=1)
    y = train_d['Crop_Damage'].values.reshape(-1,1)
 
-   X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=7)
+   X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=20, stratify=y)
    return X_train, X_test, y_train, y_test
 
 
