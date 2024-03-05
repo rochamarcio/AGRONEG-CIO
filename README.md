@@ -1,1 +1,1 @@
-Primeiro projeto de machine learning - Agronegócio
+Primeiro projeto CDPRO de machine learning - Agronegócio - Em construção
