@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import warnings
+from imblearn.over_sampling import ADASYN
 warnings.filterwarnings ("ignore")
 
 # Criar uma função de imputação
@@ -25,9 +26,14 @@ def preprocessing():
     
    X = df.drop(['Crop_Damage'],axis=1)
    y = df['Crop_Damage'].values.reshape(-1,1)
-
-   X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=20, stratify=y)
-   return X_train, X_test, y_train, y_test
+   
+   ada = ADASYN(random_state=42)
+   X_res , y_res = ada.fit_resample(X,y)
+   
+   X_train, X_temp, y_train, y_temp = train_test_split(X_res,y_res,test_size=0.3,random_state=42,stratify=y_res, shuffle=True)
+   
+   X_test, X_test_final, y_test, y_test_final = train_test_split(X_temp, y_temp,test_size=0.2,random_state=42,stratify=y_temp, shuffle=True)
+   return X_train, y_train, X_test, y_test, X_test_final,y_test_final  
 
 
 #if __name__ == "__main__":
